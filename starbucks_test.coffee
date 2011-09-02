@@ -1,7 +1,11 @@
 class Starbucks
   constructor: (@server_adapter, @observers = []) ->
+
   subscribe: (server, channel) ->
     @server_adapter.subscribe(this, server, channel)
+
+  notify: (server, channel, user, msg) ->
+    observer.notify(server, channel, user, msg) for observer in @observers
 
 
 class ServerAdapter
@@ -17,11 +21,13 @@ assert = (expr, message='assertion failed') ->
 
 class MockServerAdapter
   push: (server, channel, user, msg) ->
+    @observer.notify(server, channel, user, msg)
+
   subscribe: (observer, server, channel) ->
+    @observer = observer
 
 class MockView
   constructor(@events = [])
-  observe: (event) ->
   notify:  (server, channel, user, msg) ->
     @events.push([server, channel, user, msg])
 
@@ -31,17 +37,12 @@ class MockView
 
 server_adapter = new MockServerAdapter
 view = new MockView
-view.observe("new_message")
 
 starbucks = new Starbucks(server_adapter, views = [view])
 starbucks.subscribe("irc.freenode", "drug.pl")
 server_adapter.push("irc.freenode", "drug.pl", "mlomnicki", "sql rulez")
 
-assert(view.events.size == 1, "view not notified")
-
-
-
-
+assert(view.events.length == 1, "view not notified")
 
 console.log(".")
 
