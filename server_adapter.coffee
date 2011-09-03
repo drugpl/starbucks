@@ -1,15 +1,10 @@
 WebSocket =  require('websocket-client').WebSocket
 
-onData = (buf) ->
-  console.log("got some data, yay!")
-  console.log(buf.toString())
-
 class ServerAdapter
   constructor: ->
     ws = new WebSocket('ws://localhost:8080/')
-    ws.addListener('data', onData)
     ws.onmessage =  (m) ->
-      console.log(m)
+      console.log(m.data)
     ws.send("hi from socket")
   push: (server, channel, user, msg) ->
   subscriber: (observer, server, channel) ->
