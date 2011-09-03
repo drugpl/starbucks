@@ -1,12 +1,5 @@
 Starbucks =  require('./starbucks').Starbucks
 
-
-class ServerAdapter
-  push: (server, channel, user, msg) ->
-  subscriber: (observer, server, channel) ->
-
-
-
 assert = (expr, message='assertion failed') ->
   if not expr
     console.log(message)
