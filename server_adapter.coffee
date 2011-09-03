@@ -3,11 +3,13 @@ WebSocket =  require('websocket-client').WebSocket
 class ServerAdapter
   constructor: ->
     ws = new WebSocket('ws://localhost:8080/')
-    ws.onmessage =  (m) ->
-      console.log(m.data)
-    ws.send("hi from socket")
+    ws.onmessage =  (m) =>
+      this.push(m.data, m.data, m.data, m.data) if @observer
   push: (server, channel, user, msg) ->
-  subscriber: (observer, server, channel) ->
+    @observer.notify(server, channel, user, msg)
+  subscribe: (observer, server, channel) ->
+    @observer = observer
+
 
 exports.ServerAdapter = ServerAdapter
 
