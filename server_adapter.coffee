@@ -1,7 +1,9 @@
 WebSocket =  require('websocket-client').WebSocket
 
 onData = (buf) ->
-  console.log(buf)
+  console.log("got some data, yay!")
+  console.log(buf.toString())
+
 class ServerAdapter
   constructor: ->
     ws = new WebSocket('ws://localhost:8080/')
