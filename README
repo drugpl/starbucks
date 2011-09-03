@@ -1,0 +1,42 @@
+Starbucks
+=======
+
+A client for a server which proxies to irc channels. The communication is done using WebSocket. 
+
+Use cases
+=======
+
+Live streaming from various irc channel into one frontend (web gui).
+Watching the history of irc channels.
+
+Technology
+=======
+
+The Starbucks client is written in CoffeeScript. 
+It consists of the Starbucks class which serves as a main model.
+
+The Starbucks object depends on the server adapter (which uses web socket) and optionaly it can take the observers (views).
+
+Testing
+=======
+
+coffee starbucks_test.coffee
+
+Running
+=======
+
+coffee server/server.coffee
+(a test web socket server listens on 8080)
+
+coffee main.coffee
+(console logger as a view)
+
+
+Credits
+=======
+
+The drug.org.pl crew.
+
+
+
+
